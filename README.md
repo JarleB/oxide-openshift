@@ -29,7 +29,7 @@ NB: This setup is not intended for production use!
 * Create a disk from the RHCOS image and attach the disk to the loadbalancer instance
 * Boot the loadbalancer instance and mount the RHCOS image's boot partition and append kernel arguments to the grub config; for example in the the file `grub2/05_ignition.cfg` -> ` set ignition_network_kcmdline=' ignition.config.url=https://your-bucket-address/bootstrap.ign '`
 * Unmount the RHCOS disk's boot partition, stop the loadbalancer instance and create a snapshot of the RHCOS disk, then create a dedicateed  RHCOS image from that snapshot. This is the image-id you will use later to create the bootstrap node instance in cluster.yaml
-* Repeat the above process to create RHCOS image for control plane nodes and worker nodes respectively, so that they boot and fetch ignition configs from the master.ign and worker.ign files in your s3 bucket. This will be the image ids you confgure for control plne and worker nodes in the cluster.yaml file later
+* Repeat the above process to create RHCOS image for control plane nodes and worker nodes respectively, so that they boot and fetch ignition configs from the master.ign and worker.ign files in your s3 bucket. This will be the image ids you confgure for control plane and worker nodes in the cluster.yaml file later
 * Create VPC firewall rules to allow traffic to tcp ports 6443, 22623, 80 and 443 within the VPC . (Note this can be made more granular and also included in the Terraform config)
 * Fetch the id of your default vpc and subnet.
 * Fill in the vpc_id, project_id and normalized_cluster_name in the cluster.yaml file, and adjust the valeus to your liking. The defaults should be sufficient for a POC cluster of Openshift.
