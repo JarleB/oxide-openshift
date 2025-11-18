@@ -23,7 +23,7 @@ NB: This setup is not intended for production use!
 * Provision an Ubuntu server instance 24.04 (or similar), and install haproxy. This will be your loadbalncer
 * Allocate a floating IP and attach it to the loadblancer instance
 * Own a DNS base domain where you can configer A-records in.
-* Create the DNS A-records for *.apps.clustername.base-domain, api.clustername.base-domain and api-int.clustername.base-domaan pointing to the floating IP-adress of the loadbalancer instance
+* Create the DNS A-records for `*.apps.clustername.base-domain`, `api.clustername.base-domain` and `api-int.clustername.base-domain` pointing to the floating IP-adress of the loadbalancer instance
 * Download the "Red Hat Enterprise Linux CoreOS - Baremetal QEMU Image (QCOW2)" image from RedHat.
 * Convert it to raw format and create an image for it in your 0xide project. (Ref: https://docs.oxide.computer/guides/creating-and-sharing-images)
 * Create a disk from the RHCOS image and attach the disk to the loadbalancer instance
