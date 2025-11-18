@@ -1,0 +1,22 @@
+subnet_id: <your-subnet-id>
+vpc_id: <your-vpc-id>
+project_id: <you-project-id>
+normalized_cluster_domain: <your-normalized-full-cluster-domain> # You can choose the name to be anything, except that some charecters (like "." ) is disallowed in object names in 0xide 
+boot:
+  count: 1
+  ncpus: 4
+  memory: 17179869184
+  disk_size: 107374182400
+  image_id: "<image-id-of-bootstrap-prepared-image>"
+cp:
+  count: 3
+  ncpus: 4
+  memory: 17179869184
+  disk_size: 107374182400
+  image_id: "image-id-of-control-plane-prepared-image>"
+worker:
+  count: 0
+  ncpus: 4
+  memory: 17179869184
+  disk_size: 107374182400
+  image_id: "<image-id-of-worker-prepared-image>"

@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+baseDomain: <your base dns domain>
+compute:
+- name: worker
+  replicas: 2
+controlPlane:
+  name: master
+  replicas: 3
+metadata:
+  name: <your-cluster-name>
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  networkType: OVNKubernetes
+  serviceNetwork:
+  - 172.25.0.0/16 # <- Note this as the default for openshift installer (172.30.0.0/16) may collide with 0xide VPC ip ranges. Then the cluster networking will not function due to routing collision in the CNI.
+platform:
+  none: {}
+pullSecret: '<your pull secret from RedHat>'
+sshKey: '<your public ssh key for logging into coreos on the nodes>'

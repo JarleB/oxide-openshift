@@ -1,0 +1,64 @@
+frontend ocp4_k8s_api_fe
+    bind :6443
+    default_backend ocp4_k8s_api_be
+    mode tcp
+    option tcplog
+
+frontend ocp4_machine_config_server_fe
+    bind :22623
+    default_backend ocp4_machine_config_server_be
+    mode tcp
+    option tcplog
+
+
+frontend ocp4_http_ingress_traffic_fe
+    bind :80
+    default_backend ocp4_http_ingress_traffic_be
+    mode tcp
+    option tcplog
+
+frontend ocp4_https_ingress_traffic_fe
+    bind :443
+    default_backend ocp4_https_ingress_traffic_be
+    mode tcp
+    option tcplog
+
+
+backend ocp4_k8s_api_be
+    balance source
+    mode tcp
+    # control plane back end serveres go here
+    #server boot-1-towel-saft-in 172.30.0.6:6443 check
+    #server cp-1-towel-saft-in 172.30.0.9:6443 check
+    #server cp-2-towel-saft-in 172.30.0.8:6443 check
+    #server cp-3-towel-saft-in 172.30.0.7:6443 check
+
+backend ocp4_machine_config_server_be
+    balance source
+    mode tcp
+    # control plane back end serveres go here
+    #server boot-1-towel-saft-in 172.30.0.6:22623 check
+    #server cp-1-towel-saft-in 172.30.0.9:22623 check
+    #server cp-2-towel-saft-in 172.30.0.8:22623 check
+    #server cp-3-towel-saft-in 172.30.0.7:22623 check
+
+backend ocp4_http_ingress_traffic_be
+    balance source
+    mode tcp
+    # ingress controller back end serveres go here
+    #server boot 134.195.24.66:80 check
+    #server worker1 134.195.24.80:80 check
+    #server worker2 134.195.24.81:80 check
+    #server master2 134.195.24.77:80 check
+    #server master3 134.195.24.79:80 check
+
+backend ocp4_https_ingress_traffic_be
+    balance source
+    mode tcp
+    # ingress controller back end serveres go here
+    #server worker1 134.195.24.80:443 check
+    #server worker2 134.195.24.81:443 check
+    #server boot 134.195.24.66:443 check
+    #server master1 134.195.24.76:443 check
+    #server master2 134.195.24.77:443 check
+    #server master3 134.195.24.79:443 check
