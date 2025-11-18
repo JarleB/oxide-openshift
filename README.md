@@ -22,7 +22,7 @@ NB: This setup is not intended for production use!
   * Set ACLs on bucket to public, and limit source IP access to what is expected from your 0xide silo
 * Provision an Ubuntu server instance 24.04 (or similar), and install haproxy. This will be your loadbalncer
 * Allocate a floating IP and attach it to the loadblancer instance
-* Own a DNS base domain where you can configer A-records in.
+* Own a DNS base domain where you can configure A-records in.
 * Create the DNS A-records for `*.apps.clustername.base-domain`, `api.clustername.base-domain` and `api-int.clustername.base-domain` pointing to the floating IP-adress of the loadbalancer instance
 * Download the "Red Hat Enterprise Linux CoreOS - Baremetal QEMU Image (QCOW2)" image from RedHat.
 * Convert it to raw format and create an image for it in your 0xide project. (Ref: https://docs.oxide.computer/guides/creating-and-sharing-images)
@@ -32,8 +32,9 @@ NB: This setup is not intended for production use!
 * Repeat the above process to create RHCOS image for control plane nodes and worker nodes respectively, so that they boot and fetch ignition configs from the master.ign and worker.ign files in your s3 bucket. This will be the image ids you confgure for control plane and worker nodes in the cluster.yaml file later
 * Create VPC firewall rules to allow traffic to tcp ports 6443, 22623, 80 and 443 within the VPC . (Note this can be made more granular and also included in the Terraform config)
 * Fetch the id of your default vpc and subnet.
-* Fill in the vpc_id, project_id and normalized_cluster_name in the cluster.yaml file, and adjust the valeus to your liking. The defaults should be sufficient for a POC cluster of Openshift.
-* Run terreform init, plan and apply (if all looks good)
+* Fill in the vpc_id, project_id and normalized_cluster_name in the cluster.yaml file, and adjust the values to your liking. The defaults should be sufficient for a POC cluster of Openshift.
+* Run the installer_prep.bash script to generate manifests, ignition configs and upload them to your s3 bucket.
+* Run terraform/tofu init, plan and apply (if all looks good)
 * source the functions file, run fetch_master_backends and combine the output with the haproxy_config stub and apply the config to the loadbalancer.
 * export KUBECONFIG=installer_dir/auth/kubeconfig and check the bootstrap progress. Wait for `openshift-install wait-for bootstrap-complete --dir=instlller_dir` before proceeding.
 * In the cluster.yaml file, adjust the count of bootstrap nodes ot 0 and the count of worker nodes to >= 2
